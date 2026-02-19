@@ -20,7 +20,6 @@ More information about us on [Trikhub.com](https://trikhub.com)
 
 ### 2. Install the Integration
 
-Easily install through HACS:
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Molefas&repository=trikhub-ha-addons&category=Integration)
 
 Or copy the integration manually to your HA config:
