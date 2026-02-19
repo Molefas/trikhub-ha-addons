@@ -31,6 +31,7 @@ export LINT_ON_LOAD="${LINT_ON_LOAD}"
 # Data directories (persisted across restarts)
 export SKILLS_DIR="/data/skills"
 export CONFIG_PATH="/data/.trikhub/config.json"
+export BASE_DIR="/data"
 
 # Server configuration
 export PORT="3000"
@@ -81,9 +82,10 @@ if [ ! -f /data/package.json ]; then
 fi
 
 # Set up symlinks from /app to /data (server runs with cwd=/app)
-ln -sf /data/package.json /app/package.json 2>/dev/null || true
-ln -sf /data/.trikhub /app/.trikhub 2>/dev/null || true
-ln -sf /data/node_modules /app/node_modules 2>/dev/null || true
+# Use -n flag to replace symlinks rather than creating symlinks inside them
+ln -sfn /data/package.json /app/package.json 2>/dev/null || true
+ln -sfn /data/.trikhub /app/.trikhub 2>/dev/null || true
+ln -sfn /data/node_modules /app/node_modules 2>/dev/null || true
 
 # Python support
 export TRIKHUB_PYTHON="python3"

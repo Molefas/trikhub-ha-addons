@@ -1,13 +1,13 @@
 {
   "domain": "trikhub",
   "name": "TrikHub",
-  "codeowners": ["@ruimolefas"],
+  "codeowners": ["@molefas"],
   "config_flow": true,
   "dependencies": ["conversation"],
   "documentation": "https://trikhub.com/docs/homeassistant",
   "integration_type": "service",
   "iot_class": "local_push",
-  "issue_tracker": "https://github.com/trikhub/trikhub-ha-addons/issues",
+  "issue_tracker": "https://github.com/molefas/trikhub-ha-addons/issues",
   "requirements": [
     "aiohttp>=3.8.0",
     "langgraph>=0.2.0",

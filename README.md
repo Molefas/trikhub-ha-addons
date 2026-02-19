@@ -9,7 +9,7 @@ Home Assistant addon and integration for the TrikHub AI skill ecosystem. Extend 
 1. Open Home Assistant
 2. Go to **Settings** > **Add-ons** > **Add-on Store**
 3. Click the menu (three dots) > **Repositories**
-4. Add: `https://github.com/trikhub/trikhub-ha-addons`
+4. Add: `https://github.com/molefas/trikhub-ha-addons`
 5. Find "TrikHub Server" and click **Install**
 6. Start the addon
 
@@ -45,14 +45,14 @@ Use the HA service to install Triks:
 
 1. Go to **Developer Tools** > **Services**
 2. Select `trikhub.install_trik`
-3. Enter the package name, e.g., `@molefas/trik-example`
+3. Enter the package name, e.g., `@molefas/trik-demo-notes`
 4. Click **Call Service**
 
 Or via API:
 ```bash
 curl -X POST http://<addon-ip>:3000/api/v1/triks/install \
   -H "Content-Type: application/json" \
-  -d '{"package": "@molefas/trik-example"}'
+  -d '{"package": "@molefas/trik-demo-notes"}'
 ```
 
 ### 6. Use It!
@@ -187,7 +187,7 @@ See [TESTING.md](TESTING.md) for local development and testing instructions.
 - [TrikHub Website](https://trikhub.com)
 - [TrikHub Documentation](https://trikhub.com/docs)
 - [Browse Triks Registry](https://trikhub.com/triks)
-- [Report Issues](https://github.com/trikhub/trikhub-ha-addons/issues)
+- [Report Issues](https://github.com/molefas/trikhub-ha-addons/issues)
 
 ## License
 

@@ -1,9 +1,9 @@
 # TrikHub Server Add-on Configuration
 name: "TrikHub Server"
 description: "AI skill ecosystem for Home Assistant - Install and use third-party AI capabilities (Triks)"
-version: "1.0.5"
+version: "1.0.8"
 slug: "trikhub"
-url: "https://github.com/trikhub/trikhub-ha-addons"
+url: "https://github.com/molefas/trikhub-ha-addons"
 arch:
   - aarch64
   - amd64

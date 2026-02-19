@@ -199,7 +199,7 @@ class TrikHubClient:
         """Install a trik from the registry.
 
         Args:
-            package: Package name (e.g., '@molefas/article-search').
+            package: Package name (e.g., '@molefas/trik-article-search').
 
         Returns:
             Installation result.

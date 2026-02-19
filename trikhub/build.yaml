@@ -20,5 +20,5 @@ labels:
   org.opencontainers.image.description: "AI skill ecosystem for Home Assistant"
   org.opencontainers.image.vendor: "TrikHub"
   org.opencontainers.image.licenses: "MIT"
-  org.opencontainers.image.source: "https://github.com/trikhub/trikhub-ha-addons"
+  org.opencontainers.image.source: "https://github.com/molefas/trikhub-ha-addons"
   io.hass.type: "addon"

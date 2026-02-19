@@ -75,19 +75,27 @@ The addon exposes a REST API on port 3000 (internal only):
 
 ## Installing Triks
 
+### Via Services
+
+- Navigate to Developer Tools > Actions
+- Search for "Trikhub"
+- See the Install / Uninstall / Execute actions
+
+Make sure that when installing / uninstalling you add the entire trik name `(@org/repo)`
+
 ### Via API
 
 ```bash
 curl -X POST http://homeassistant.local:3000/api/v1/triks/install \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer your-token" \
-  -d '{"package": "@molefas/article-search"}'
+  -d '{"package": "@org/repo"}'
 ```
 
 ### Via Terminal (SSH)
 
 ```bash
-docker exec addon_trikhub trik install @molefas/article-search
+docker exec addon_trikhub trik install @org/repo
 ```
 
 ## Integration with Home Assistant
@@ -132,8 +140,7 @@ If you've configured `AUTH_TOKEN`, ensure you're sending the correct Bearer toke
 ## Support
 
 - [TrikHub Documentation](https://trikhub.com/docs)
-- [Report Issues](https://github.com/trikhub/trikhub-ha-addons/issues)
-- [TrikHub Discord](https://discord.gg/trikhub)
+- [Report Issues](https://github.com/Molefas/trikhub-ha-addons/issues)
 
 ## License
 

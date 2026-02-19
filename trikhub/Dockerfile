@@ -18,11 +18,11 @@ RUN apk add --no-cache \
 WORKDIR /app
 
 # Cache bust arg - increment to force npm re-fetch
-ARG TRIKHUB_VERSION=0.9.0
+ARG TRIKHUB_VERSION=0.10.0
 
 # Install TrikHub packages globally
-# Node.js packages (server and CLI)
-RUN npm install -g @trikhub/server@${TRIKHUB_VERSION} @trikhub/cli@latest
+# Server and CLI (dependencies like gateway, linter, manifest are pulled automatically)
+RUN npm install -g @trikhub/server@${TRIKHUB_VERSION} @trikhub/cli@0.4.0
 
 # Python packages for trik support
 # - trikhub: Core Python SDK for running Python triks
@@ -41,9 +41,10 @@ RUN mkdir -p /data/skills /data/.trikhub/storage /data/.trikhub/triks /data/node
     echo '{"name":"trikhub-addon-triks","private":true,"type":"module"}' > /data/package.json
 
 # Symlink /app to /data so trik install works (server runs with cwd=/app)
-RUN ln -sf /data/package.json /app/package.json && \
-    ln -sf /data/.trikhub /app/.trikhub && \
-    ln -sf /data/node_modules /app/node_modules
+# Use -n flag to ensure symlinks are replaced, not nested
+RUN ln -sfn /data/package.json /app/package.json && \
+    ln -sfn /data/.trikhub /app/.trikhub && \
+    ln -sfn /data/node_modules /app/node_modules
 
 # Environment variables (overridden by S6 run script from HA config)
 ENV NODE_ENV=production
