@@ -97,8 +97,8 @@ class TrikHubConversationEntity(
 ):
     """TrikHub conversation entity using LangGraph with Trik tools."""
 
-    _attr_has_entity_name = True
-    _attr_name = None
+    _attr_has_entity_name = False
+    _attr_name = "TrikHub"
     _attr_supported_features = ConversationEntityFeature.CONTROL
 
     def __init__(
