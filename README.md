@@ -51,7 +51,7 @@ Then restart Home Assistant.
 Use the HA service to install Triks. You can find and create these in the [Registry](https://trikhub.com).
 I've created very basic examples to demo the tool:
 1. [Article Search Demo](https://trikhub.com/skills/molefas/trik-article-search)
-  - This one requires you to setup secrets in the addon so the Trik agent can consume your API Key
+  - This one requires you to setup secrets in the addon so the Trik agent can consume your API Key. Don't worry, Secrets / Env vars are part of the Trik's design and you can audit the entire code to see what is done with them. They are also scope per-trik.
   - Go to the Addon an add a Secret
   - key: ANTHROPIC_API_KEY || GOOGLE_API_KEY || OPENAI_API_KEY ||
   - value: Your key
