@@ -1,0 +1,43 @@
+execute_trik:
+  name: Execute Trik
+  description: Execute a TrikHub skill action
+  fields:
+    tool:
+      name: Tool
+      description: Tool name in format trikId:actionName (e.g., article-search:search)
+      required: true
+      example: "article-search:search"
+      selector:
+        text:
+    input:
+      name: Input
+      description: Input parameters for the tool (as a dictionary)
+      required: false
+      default: {}
+      example: '{"query": "home automation"}'
+      selector:
+        object:
+
+install_trik:
+  name: Install Trik
+  description: Install a trik from the TrikHub registry
+  fields:
+    package:
+      name: Package
+      description: Package name to install (e.g., @molefas/article-search)
+      required: true
+      example: "@molefas/article-search"
+      selector:
+        text:
+
+uninstall_trik:
+  name: Uninstall Trik
+  description: Uninstall a trik from the system
+  fields:
+    name:
+      name: Name
+      description: Trik name to uninstall
+      required: true
+      example: "@molefas/article-search"
+      selector:
+        text:

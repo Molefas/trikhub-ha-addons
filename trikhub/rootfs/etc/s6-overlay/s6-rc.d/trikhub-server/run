@@ -1,0 +1,104 @@
+#!/usr/bin/with-contenv bash
+# ==============================================================================
+# TrikHub Server - Start Script
+# ==============================================================================
+set -e
+
+echo "[trikhub] Starting TrikHub Server..."
+
+# Read configuration from Home Assistant addon options
+CONFIG_PATH_ADDON="/data/options.json"
+
+if [ -f "$CONFIG_PATH_ADDON" ]; then
+    AUTH_TOKEN=$(jq -r '.AUTH_TOKEN // empty' "$CONFIG_PATH_ADDON")
+    REGISTRY_URL=$(jq -r '.REGISTRY_URL // "https://api.trikhub.com"' "$CONFIG_PATH_ADDON")
+    LOG_LEVEL=$(jq -r '.LOG_LEVEL // "info"' "$CONFIG_PATH_ADDON")
+    LINT_ON_LOAD=$(jq -r '.LINT_ON_LOAD // true' "$CONFIG_PATH_ADDON")
+else
+    echo "[trikhub] Warning: No options.json found, using defaults"
+    AUTH_TOKEN=""
+    REGISTRY_URL="https://api.trikhub.com"
+    LOG_LEVEL="info"
+    LINT_ON_LOAD="true"
+fi
+
+# Export environment variables
+export AUTH_TOKEN="${AUTH_TOKEN}"
+export TRIKHUB_REGISTRY="${REGISTRY_URL}"
+export LOG_LEVEL="${LOG_LEVEL}"
+export LINT_ON_LOAD="${LINT_ON_LOAD}"
+
+# Data directories (persisted across restarts)
+export SKILLS_DIR="/data/skills"
+export CONFIG_PATH="/data/.trikhub/config.json"
+
+# Server configuration
+export PORT="3000"
+export HOST="0.0.0.0"
+export NODE_ENV="production"
+
+# Ensure data directories exist
+mkdir -p /data/skills /data/.trikhub/storage /data/.trikhub/triks /data/node_modules
+
+# Initialize config if not exists
+if [ ! -f /data/.trikhub/config.json ]; then
+    echo "[trikhub] Initializing TrikHub configuration..."
+    echo '{"triks":[]}' > /data/.trikhub/config.json
+fi
+
+# Build secrets.json from addon SECRETS configuration
+# Always rebuild to pick up config changes
+echo "[trikhub] Building secrets.json from addon configuration..."
+echo '{}' > /data/.trikhub/secrets.json
+
+# Each SECRETS entry: { "key": "API_KEY", "value": "xxx", "triks": ["trik-1", "trik-2"] }
+if [ -f "$CONFIG_PATH_ADDON" ] && jq -e '.SECRETS | length > 0' "$CONFIG_PATH_ADDON" > /dev/null 2>&1; then
+    jq -c '.SECRETS[]' "$CONFIG_PATH_ADDON" | while read -r entry; do
+        KEY=$(echo "$entry" | jq -r '.key')
+        VALUE=$(echo "$entry" | jq -r '.value')
+
+        # For each trik in the triks array, add this key/value
+        echo "$entry" | jq -r '.triks[]' | while read -r TRIK_ID; do
+            # Read current secrets, add this key, write back
+            CURRENT=$(cat /data/.trikhub/secrets.json)
+            echo "$CURRENT" | jq --arg id "$TRIK_ID" --arg k "$KEY" --arg v "$VALUE" \
+                '.[$id] = ((.[$id] // {}) + {($k): $v})' > /data/.trikhub/secrets.json
+        done
+    done
+
+    CONFIGURED_TRIKS=$(jq -r 'keys | join(", ")' /data/.trikhub/secrets.json 2>/dev/null)
+    if [ -n "$CONFIGURED_TRIKS" ] && [ "$CONFIGURED_TRIKS" != "" ]; then
+        echo "[trikhub] Secrets configured for triks: $CONFIGURED_TRIKS"
+    fi
+else
+    echo "[trikhub] No SECRETS configured in addon options"
+fi
+
+# Initialize package.json for trik installations if not exists
+if [ ! -f /data/package.json ]; then
+    echo "[trikhub] Initializing package.json for trik installations..."
+    echo '{"name":"trikhub-addon-triks","private":true,"type":"module"}' > /data/package.json
+fi
+
+# Set up symlinks from /app to /data (server runs with cwd=/app)
+ln -sf /data/package.json /app/package.json 2>/dev/null || true
+ln -sf /data/.trikhub /app/.trikhub 2>/dev/null || true
+ln -sf /data/node_modules /app/node_modules 2>/dev/null || true
+
+# Python support
+export TRIKHUB_PYTHON="python3"
+
+echo "[trikhub] TrikHub Server configuration:"
+echo "[trikhub]   - Skills directory: ${SKILLS_DIR}"
+echo "[trikhub]   - Config path: ${CONFIG_PATH}"
+echo "[trikhub]   - Registry URL: ${REGISTRY_URL}"
+echo "[trikhub]   - Log level: ${LOG_LEVEL}"
+echo "[trikhub]   - Lint on load: ${LINT_ON_LOAD}"
+if [ -n "${AUTH_TOKEN}" ]; then
+    echo "[trikhub]   - Auth enabled: yes"
+else
+    echo "[trikhub]   - Auth enabled: no"
+fi
+
+# Start the TrikHub server (globally installed from npm)
+exec trik-server

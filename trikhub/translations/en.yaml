@@ -1,0 +1,21 @@
+configuration:
+  AUTH_TOKEN:
+    name: Authentication Token
+    description: >-
+      Optional bearer token for API authentication. Leave empty to disable
+      authentication (not recommended for production).
+  REGISTRY_URL:
+    name: Registry URL
+    description: >-
+      The TrikHub registry URL for downloading Triks. Use the default unless
+      you're running a self-hosted registry.
+  LOG_LEVEL:
+    name: Log Level
+    description: >-
+      Server logging verbosity. Use 'debug' for troubleshooting, 'info' for
+      normal operation.
+  LINT_ON_LOAD:
+    name: Security Validation
+    description: >-
+      Validate Triks for security vulnerabilities when loading. Recommended to
+      keep enabled.

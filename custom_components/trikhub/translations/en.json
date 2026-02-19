@@ -1,0 +1,94 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "TrikHub Server Configuration",
+        "description": "Configure the connection to your TrikHub server.",
+        "data": {
+          "server_url": "Server URL",
+          "auth_token": "Authentication Token (optional)"
+        },
+        "data_description": {
+          "server_url": "The URL of your TrikHub server. Use {default_url} for the local addon.",
+          "auth_token": "Optional bearer token for API authentication."
+        }
+      },
+      "llm": {
+        "title": "LLM Configuration",
+        "description": "Configure the LLM provider for the conversation agent.",
+        "data": {
+          "llm_provider": "LLM Provider",
+          "llm_api_key": "API Key",
+          "llm_model": "Model"
+        },
+        "data_description": {
+          "llm_provider": "The LLM provider to use for processing conversations.",
+          "llm_api_key": "Your API key for the selected provider. For Ollama, enter the server URL.",
+          "llm_model": "The model to use (e.g., gpt-4o-mini, claude-3-sonnet, llama3)."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to the TrikHub server. Please check the URL and try again.",
+      "invalid_auth": "Invalid authentication. Please check your token.",
+      "api_key_required": "API key is required for this provider.",
+      "unknown": "An unexpected error occurred."
+    },
+    "abort": {
+      "already_configured": "TrikHub is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "TrikHub Options",
+        "data": {
+          "llm_model": "LLM Model"
+        }
+      }
+    }
+  },
+  "entity": {
+    "conversation": {
+      "trikhub": {
+        "name": "TrikHub"
+      }
+    }
+  },
+  "services": {
+    "execute_trik": {
+      "name": "Execute Trik",
+      "description": "Execute a TrikHub skill action.",
+      "fields": {
+        "tool": {
+          "name": "Tool",
+          "description": "Tool name in format trikId:actionName."
+        },
+        "input": {
+          "name": "Input",
+          "description": "Input parameters for the tool."
+        }
+      }
+    },
+    "install_trik": {
+      "name": "Install Trik",
+      "description": "Install a trik from the TrikHub registry.",
+      "fields": {
+        "package": {
+          "name": "Package",
+          "description": "Package name to install."
+        }
+      }
+    },
+    "uninstall_trik": {
+      "name": "Uninstall Trik",
+      "description": "Uninstall a trik from the system.",
+      "fields": {
+        "name": {
+          "name": "Name",
+          "description": "Trik name to uninstall."
+        }
+      }
+    }
+  }
+}

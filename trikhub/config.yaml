@@ -1,0 +1,66 @@
+# TrikHub Server Add-on Configuration
+name: "TrikHub Server"
+description: "AI skill ecosystem for Home Assistant - Install and use third-party AI capabilities (Triks)"
+version: "1.0.5"
+slug: "trikhub"
+url: "https://github.com/trikhub/trikhub-ha-addons"
+arch:
+  - aarch64
+  - amd64
+  - armv7
+init: false
+
+# Home Assistant API access for future HA tool integration
+homeassistant_api: true
+
+# No web UI - management via HA services only
+
+# Internal port only (not exposed externally)
+ports:
+  3000/tcp: null
+
+ports_description:
+  3000/tcp: "TrikHub API (internal only)"
+
+# Volume mappings
+map:
+  - addon_config:rw
+
+# Configuration options
+options:
+  # Authentication token for API access (leave empty to disable auth)
+  AUTH_TOKEN: ""
+
+  # TrikHub Registry URL
+  REGISTRY_URL: "https://api.trikhub.com"
+
+  # Logging level
+  LOG_LEVEL: "info"
+
+  # Enable security linting on trik load
+  LINT_ON_LOAD: true
+
+  # Trik secrets configuration
+  # Define secrets and assign them to one or more triks
+  # Example:
+  #   - key: ANTHROPIC_API_KEY
+  #     value: "sk-ant-xxx"
+  #     triks:
+  #       - trik-article-search-py
+  #       - trik-demo-notes-py
+  SECRETS: []
+
+schema:
+  AUTH_TOKEN: str?
+  REGISTRY_URL: url
+  LOG_LEVEL: list(debug|info|warn|error)
+  LINT_ON_LOAD: bool
+  SECRETS:
+    - key: str
+      value: password
+      triks:
+        - str
+
+# Startup configuration
+startup: application
+boot: auto

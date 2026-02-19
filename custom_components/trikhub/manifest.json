@@ -1,0 +1,20 @@
+{
+  "domain": "trikhub",
+  "name": "TrikHub",
+  "codeowners": ["@ruimolefas"],
+  "config_flow": true,
+  "dependencies": ["conversation"],
+  "documentation": "https://trikhub.com/docs/homeassistant",
+  "integration_type": "service",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/trikhub/trikhub-ha-addons/issues",
+  "requirements": [
+    "aiohttp>=3.8.0",
+    "langgraph>=0.2.0",
+    "langchain-core>=0.3.0",
+    "langchain-openai>=0.2.0",
+    "langchain-anthropic>=0.2.0",
+    "langchain-ollama>=0.2.0"
+  ],
+  "version": "1.0.0"
+}
