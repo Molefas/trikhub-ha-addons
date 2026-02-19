@@ -2,6 +2,11 @@
 
 Home Assistant addon and integration for the TrikHub AI skill ecosystem. Extend your Home Assistant voice assistant with third-party AI skills (Triks).
 
+This entire repo is basically a basic wrapper allowing users to easily expand their conversation agents with Skills. Trikhub allows then the creation and sharing of these Open Souce skill sith the community.
+
+A more direct "hands-on" implementation of Trikhub is possible (and better) within in Agents.
+More information about us on [Trikhub.com](https://trikhub.com)
+
 ## Quick Start
 
 ### 1. Install the Addon
@@ -15,7 +20,10 @@ Home Assistant addon and integration for the TrikHub AI skill ecosystem. Extend 
 
 ### 2. Install the Integration
 
-Copy the integration to your HA config:
+Easily install through HACS:
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Molefas&repository=trikhub-ha-addons&category=Integration)
+
+Or copy the integration manually to your HA config:
 
 ```bash
 # From your local machine
@@ -41,7 +49,12 @@ Then restart Home Assistant.
 
 ### 5. Install Triks
 
-Use the HA service to install Triks:
+Use the HA service to install Triks. You can find and create these in the [Registry](https://trikhub.com).
+I've created very basic examples to demo the tool:
+1. [Article Search Demo](https://trikhub.com/skills/molefas/trik-article-search)
+2. [Notes Demo](https://trikhub.com/skills/molefas/trik-demo-notes)
+
+To install these or other Triks:
 
 1. Go to **Developer Tools** > **Services**
 2. Select `trikhub.install_trik`
@@ -178,9 +191,8 @@ If you get 401 errors, you might be hitting a proxy instead of the addon directl
 2. Check the model name matches your provider
 3. For Ollama, ensure the server is running and the model is pulled
 
-## Development
-
-See [TESTING.md](TESTING.md) for local development and testing instructions.
+## Disclaimer
+This project is in its infancy and many more updates, features, fixes and improvements are planned. Any help in the right direction is greatly appreciated. Check the [Trikhub repository](https://github.com/Molefas/trikhub) for more info.
 
 ## Links
 
