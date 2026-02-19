@@ -51,6 +51,12 @@ Then restart Home Assistant.
 Use the HA service to install Triks. You can find and create these in the [Registry](https://trikhub.com).
 I've created very basic examples to demo the tool:
 1. [Article Search Demo](https://trikhub.com/skills/molefas/trik-article-search)
+  - This one requires you to setup secrets in the addon so the Trik agent can consume your API Key
+  - Go to the Addon an add a Secret
+  - key: ANTHROPIC_API_KEY || GOOGLE_API_KEY || OPENAI_API_KEY ||
+  - value: Your key
+  - triks: `trik-article-search`
+
 2. [Notes Demo](https://trikhub.com/skills/molefas/trik-demo-notes)
 
 To install these or other Triks:
@@ -189,6 +195,7 @@ If you get 401 errors, you might be hitting a proxy instead of the addon directl
 1. Verify your API key is correct
 2. Check the model name matches your provider
 3. For Ollama, ensure the server is running and the model is pulled
+4. Check if the Trik that you're using requires any Secrets (Env vars) and set these up in the Addon
 
 ## Disclaimer
 This project is in its infancy and many more updates, features, fixes and improvements are planned. Any help in the right direction is greatly appreciated. Check the [Trikhub repository](https://github.com/Molefas/trikhub) for more info.
