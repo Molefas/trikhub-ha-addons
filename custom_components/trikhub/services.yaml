@@ -24,9 +24,9 @@ install_trik:
   fields:
     package:
       name: Package
-      description: Package name to install (e.g., @molefas/article-search)
+      description: Package name to install (e.g., @molefas/trik-article-search)
       required: true
-      example: "@molefas/article-search"
+      example: "@molefas/trik-article-search"
       selector:
         text:
 
@@ -38,6 +38,6 @@ uninstall_trik:
       name: Name
       description: Trik name to uninstall
       required: true
-      example: "@molefas/article-search"
+      example: "@molefas/trik-article-search"
       selector:
         text:
